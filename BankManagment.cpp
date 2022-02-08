@@ -26,7 +26,7 @@ public:
     void Transactions();
     void CheckDetails();
     void RemoveAccount();
-    void checkid(int id);
+    int UniqueIdentity();
 };
 
 void Bank ::show()
@@ -142,11 +142,10 @@ void Bank ::AddnewUser()
     cin >> person[total].name;
     cout << "Enter the Address of the Person : ";
     cin >> person[total].address;
-    cout << "Enter the ID of the person : ";
-    cin >> person[total].ID;
+    person[total].ID = UniqueIdentity();
     cout << "Enter the cash amount : ";
     cin >> person[total].cash;
-    cout << "Enter the contact no. :";
+    cout << "Enter the contact no. : ";
     cin >> person[total].contact;
     total++;
 }
@@ -173,7 +172,6 @@ void Bank ::UpdateAccount()
     cout << "Enter the id of the account " << endl;
     int id;
     cin >> id;
-    checkid(id);
     for (int i = 0; i < total; i++)
     {
         if (id == person[i].ID)
@@ -206,7 +204,6 @@ void Bank ::Transactions()
         cout << "Enter the Id of the person" << endl;
         int id1;
         cin >> id1;
-        checkid(id1);
         cout << "Enter the amount : ";
         int amount;
         cin >> amount;
@@ -226,7 +223,6 @@ void Bank ::Transactions()
         cout << "Enter the Id of the person" << endl;
         int id2;
         cin >> id2;
-        checkid(id2);
         Begin:
         cout<<endl;
         cout << "Enter the amount : ";
@@ -263,7 +259,7 @@ void Bank ::CheckDetails()
     cout << "Enter the ID of the person you want to check details : ";
     int id;
     cin >> id;
-    checkid(id);
+    
     for (int i = 0; i < total; i++)
     {
         if (id == person[i].ID)
@@ -284,7 +280,6 @@ void Bank :: RemoveAccount(){
     cout<<"Enter the Id of the account : ";
     int id;
     cin>>id;
-    checkid(id);
     for(int i=0; i<total; i++){
         if(id == person[i].ID){
             for(int j = i; j<total-1; j++){
@@ -301,12 +296,17 @@ void Bank :: RemoveAccount(){
 }
 
 
-void Bank :: checkid(int id){
-    for(int i=0;i<=total;i++){
-        if(i==total){
-            cout<<"You Entered Invalid Id "<<endl;
+int Bank :: UniqueIdentity(){
+    uniq:
+    cout<<"Enter your id ";
+    int id;
+    cin>>id;
+    for(int i=0; i<total; i++){
+        if(id == person[i].ID){
+            cout << "Enter the ID of the person : ";
+            Sleep(2000);
+            goto uniq;
         }
     }
+    return id;
 }
-
-
